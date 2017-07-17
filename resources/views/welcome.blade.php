@@ -29,17 +29,18 @@ padding: 1px;
 .footer {
 position: relative;
 width: 100%;
-height: 180px;
+height: 220px;
 margin: 0 auto;
 padding: 1px;
 background-color: #BEBEBE;
 }
 
 .bgimg {
-background-image: url('image/bbg.jpg');
-min-height: 100%;
-background-position: center;
-background-size: cover;
+background-image: url('');
+background-repeat:no-repeat;
+background-size:contain;
+background-position:center;
+background-size: 100% ;
 }
 .full-height {
     height: 10vh;
@@ -87,43 +88,31 @@ background-size: cover;
 <body>
 
   <div class="header helvelthica" id="header">
-<div class="flex-center position-ref full-height helvelthica" >
-  <img style="padding-right:80%" src="{{asset('image/logo.jpg')}}"; style="width:1px;height=1px">
+<div class="position-ref full-height " >
+  <img style="" src="{{asset('image/logo.jpg')}}"; style="width:1px;height=1px">
 
       @if (Route::has('login'))
-          <div class="top-right links" >
+          <span class="top-right links" style="margin-left: 65%">
               @if (Auth::check())
                   <a href="{{ url('/home') }}" style="font-size: 1.5em">Home</a>
               @else
                   <a href="{{ url('/login') }}" style="font-size: 1.5em">Login</a>                  <a  href="{{ url('/register') }}" style="font-size: 1.5em">Register</a>
               @endif
-          </div>
+          </span>
       @endif
-
 </div>
-</div>
+<img src="image/bbg.jpg" style="width: 100%">
 
-  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+<div class="footer helvelthica" id="footer" align ="center" >
 
-  <div class="w3-display-middle " ><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <h2 class="helvelthica" style="font-size: 3em" > อยากใช้ชีวิตให้  Easyเลือก Wash’s Easy สิคะ
-  </h2> 
-  <p class=" w3-center helvelthica" style="font-size:2em"><b>Simple laundry without coins  by application</b></p> 
-  
-  </div>
-
-  </div>
-
-<div class="footer" id="footer" align ="center">
-
-<p><img src="{{asset('image/lo.png')}}">&nbsp&nbsp<b>By Wash's Easy Co.,Ltd.</b> </p>
+<p style="font-size: 2em"><img src="{{asset('image/lo.png')}}">&nbsp&nbsp<b>By Wash's Easy Co.,Ltd.</b> </p>
 <hr  style="width:60%">
 <div align="center">
 <a href="https://www.facebook.com/washeasyKK/"><img style="width:50px" src="{{asset('image/f.png
 ')}}"></a>&nbsp&nbsp<img style="width:50px" src="image/in.png">
 &nbsp&nbsp<img style="width:50px" src="{{asset('image/link.png')}}">&nbsp&nbsp<img style="width:50px" src="{{asset('image/t.png')}}">
 
-  <div><br>
+  <div class="helvelthica"  style="font-size: 1.5em"><br>
 <p><b>CONTACT US</b> &nbsp&nbsp<i class="material-icons">&#xe0af;</i>
  43/3 Moo 8 T.Pasak, A.Muang, Lumphun, Thailand 51000
  &nbsp&nbsp<i class="material-icons">&#xe0b0;</i>(+66)02074428
@@ -131,6 +120,6 @@ background-size: cover;
  <br><br>
 </div>
 </div>
-</div>
+</div></div>
 </body>
 </html>

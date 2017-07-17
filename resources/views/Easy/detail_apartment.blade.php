@@ -30,16 +30,19 @@
 			</div>
 		</td>
 		<td width="76%" style="font-size: 1.2em">
-		 
-		<div style="margin-left: 5%;margin-top: 5%" id="ajax">
-		<!--	Container -->
-		<!-- Resources -->
+		 <!-- Resources -->
         <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
         <script src="https://www.amcharts.com/lib/3/serial.js"></script>
         <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
         <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
         <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 
+		<div style="margin-left: 5%;margin-top: 5%" id="ajax">
+		<!--	Container -->
+
+            <label>สถิติรายวัน &nbsp&nbsp&nbsp&nbsp&nbsp </label>
+            <input type="date" name="input_day" id="input_day">
+            <input type="submit" name="submit" id="submit" value="ยืนยัน">
         <!-- Chart code -->
         <script>
         var count=1;
@@ -92,12 +95,12 @@
         </script>
 		<div id="chartdiv"></div>	
 		<div id="test" align="center">
-			<button type="submit" id ="statis_day" style="color: #A91FD8;width: 20%">สถิติรายวัน</button>
 			<button type="submit" id ="statis_week" style="color: #2C77D7;width: 20%">สถิติรายสัปดาห์</button>
 			<button type="submit" id ="statis_month" style="color: #E02727;width: 20%">สถิติรายเดือน</button>
 			<button type="submit" id ="statis_year" style="color: #6DB413;width: 20%">สถิติรายปี</button>
 		</div>
 		</div>
+    
 		<!-- HTML -->
 		
 		<div align="right" style="margin: 5%;"><a  href="/easyDorm">Back</a></div>

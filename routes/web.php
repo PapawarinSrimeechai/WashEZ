@@ -34,7 +34,7 @@ Route::get('statisUse/{id}','easy\detailController@statisUse');
 Route::get('statisMoney/{id}','easy\detailController@statisMoney');
 Route::get('ajaxGetPromotion','easy\detailController@ajaxGetPromotion');
 Route::get('ajaxGetAnalysis','easy\detailController@ajaxGetAnalysis');
-Route::get('StatisInDay','easy\detailController@StatisInDay');
+Route::get('StatisInDay/{id}/{date}','easy\detailController@StatisInDay');
 Route::get('StatisInWeek','easy\detailController@StatisInWeek');
 Route::get('StatisInMonth','easy\detailController@StatisInMonth');
 Route::get('StatisInYear','easy\detailController@StatisInYear');

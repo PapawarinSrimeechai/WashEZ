@@ -37,7 +37,7 @@ background-color: #BEBEBE;
 <a href="https://www.facebook.com/washeasyKK/"><img style="width:50px" src="{{asset('image/f.png')}}"></a>&nbsp&nbsp<img style="width:50px" src="{{asset('image/in.png')}}">
 &nbsp&nbsp<img style="width:50px" src="{{asset('image/link.png')}}">&nbsp&nbsp<img style="width:50px" src="{{asset('image/t.png')}}">
 
-  <div><br><br><br>
+  <div style="font-size: 1.2em"><br><br><br>
 <p><b>CONTACT US</b> &nbsp&nbsp<i class="material-icons">&#xe0af;</i>
  43/3 Moo 8 T.Pasak, A.Muang, Lumphun, Thailand 51000
  &nbsp&nbsp<i class="material-icons">&#xe0b0;</i>(+66)02074428

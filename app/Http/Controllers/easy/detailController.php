@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Dorm;
 use App\report;
 use App\wash_firebase;
+use Carbon\Carbon;
 
 class detailController extends Controller
 {
@@ -67,8 +68,10 @@ class detailController extends Controller
         $data['number'] = $number_Wash ;
         $tmp=[];
         for ($i = 0; $i < $number_Wash; $i++) {
-        $tmp[]= report::where('wash_id','=',($i+1))->count();
-        } 
+        $tmp[]= report::where('wash_id','=',($i+1))          
+                 -> where('created_at', '=', Carbon::today())
+                 ->count();
+        }     
          $data['wash_id'] =$tmp;
          return view('easy.detail_apartment',$data);
     }
@@ -81,7 +84,9 @@ class detailController extends Controller
         $data['number'] = $number_Wash ;
         $tmp=[];
         for ($i = 0; $i < $number_Wash; $i++) {
-        $tmp[]= report::where('wash_id','=',($i+1))->count();
+       $tmp[]= report::where('wash_id','=',($i+1))          
+                 -> where('created_at', '=', Carbon::today())
+                 ->count();
         } 
          $data['wash_id'] =$tmp;
          return response()->json($data,200);
@@ -93,7 +98,9 @@ class detailController extends Controller
         $data['number'] = $number_Wash ;
         $tmp=[];
         for ($i = 0; $i < $number_Wash; $i++) {
-        $tmp[]= report::where('wash_id','=',($i+1))->count()*30;
+        $tmp[]= report::where('wash_id','=',($i+1))          
+                 -> where('created_at', '=', Carbon::today())
+                 ->count()*30;
         } 
          $data['wash_money'] =$tmp;
          return response()->json($data,200);
@@ -114,13 +121,22 @@ class detailController extends Controller
       public function ajaxGetAnalysis(){
         echo "ajaxGetAnalysis";
     }
-     
-     public function StatisInDay(){
-        echo "StatisInDay";
+        public function StatisInDay($id,$date){
+             $obj = Dorm::find($id);
+        $number_Wash = $obj['dorm_numberWash'];
+        $data['number'] = $number_Wash ;
+        $tmp=[];
+        for ($i = 0; $i < $number_Wash; $i++) {
+       $tmp[]= report::where('wash_id','=',($i+1))          
+                 -> where('created_at', '=', $date)
+                 ->count();
+        } 
+         $data['wash_id'] =$tmp;
+         return response()->json($data,200);
     }
     
         public function StatisInWeek(){
-        echo "StatisInWeek";
+                echo "StatisInWeek";
     }
     
     public function StatisInMonth(){

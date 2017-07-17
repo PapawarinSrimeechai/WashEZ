@@ -90,7 +90,7 @@
                             <li><a href="{{ route('login') }}"><b>Login</b></a></li>
                             <li><a href="{{ route('register') }}"><b>Register</b></a></li>
                         @else
-                        <li><a href="/">หน้าหลัก</a></li>
+                        <li><a href="/">หน้าแรก</a></li>
                         <li><a href="{{url('easyDorm')}}">ลูกค้าของคุณ</a></li>
                         <li><a href="{{url('easyDorm/create')}}">เพิ่มลูกค้า</a></li>
                         <li><a href="{{url('manual')}}">คู่มื่อการใช้งาน/การดูแลรักษา</a></li>
@@ -287,21 +287,64 @@
 
     });
 });
-</script>
+</script> 
 
 <script type="text/javascript">
-    $( "#statis_day" ).click(function() {
-   $.get("/StatisInDay", function(data, status){
-        $("#ajax").html(data);
-    });
-});
-</script>
+    $( "#submit" ).click(function() {
+      var date = document.getElementById("input_day").value;
+           var url =  window.location.pathname ;
+          var obj = url.split("/");
+          var id = obj[2];
+         var send = "/StatisInDay/"+id+"/"+date;
+   $.get(send, function(data, status){
+        $("#chartdiv").html(data);
+        var dataProvider=[];
+        var count=1;
+     for(var i=0;i<data.number;i++){
+            dataProvider.push({
+                "เครื่องที่": count++,
+                "จำนวนการใช้งาน":data.wash_id[i] ,
+                "color": "#D4E810"});
+        }
+        console.log(dataProvider);
+        var chart = AmCharts.makeChart( "chartdiv", {
+          "type": "serial",
+          "theme": "light",
+          "dataProvider": dataProvider,
+          "valueAxes": [ {
+            "gridColor": "#FFFFFF",
+            "gridAlpha": 0.2,
+            "dashLength": 0,
+            "position": "left",
+            "title": "Static of Use"
+          } ],
+          "gridAboveGraphs": true,
+          "startDuration": 1,
+          "graphs": [ {
+            "balloonText": "[[category]]: <b>[[value]]</b>",
+            "fillAlphas": 0.8,
+            "lineAlpha": 0.2,
+            "type": "column",
+            "valueField": "จำนวนการใช้งาน"
+          } ],
+          "chartCursor": {
+            "categoryBalloonEnabled": false,
+            "cursorAlpha": 0,
+            "zoomable": false
+          },
+          "categoryField": "เครื่องที่",
+          "categoryAxis": {
+            "gridPosition": "start",
+            "gridAlpha": 0,
+            "tickPosition": "start",
+            "tickLength": 20
+          },
+          "export": {
+            "enabled": true
+          }
 
-<script type="text/javascript">
-    $( "#statis_week" ).click(function() {
-   $.get("/StatisInWeek", function(data, status){
-        $("#ajax").html(data);
-    });
+        });
+        });
 });
 </script>
 
