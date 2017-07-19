@@ -40,6 +40,7 @@ Route::get('StatisInMonth','easy\detailController@StatisInMonth');
 Route::get('StatisInYear','easy\detailController@StatisInYear');
 
 
+
 Route::get('/', function () {
     return view('welcome');
 });

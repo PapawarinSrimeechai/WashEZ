@@ -79,15 +79,17 @@ class detailController extends Controller
 
     public function statisUse($id)
     {
-        $obj = Dorm::find($id);
+
+         $obj = Dorm::find($id);
+        $data['obj'] = $obj;  
         $number_Wash = $obj['dorm_numberWash'];
         $data['number'] = $number_Wash ;
         $tmp=[];
         for ($i = 0; $i < $number_Wash; $i++) {
-       $tmp[]= report::where('wash_id','=',($i+1))          
+        $tmp[]= report::where('wash_id','=',($i+1))          
                  -> where('created_at', '=', Carbon::today())
                  ->count();
-        } 
+        }     
          $data['wash_id'] =$tmp;
          return response()->json($data,200);
     }
@@ -103,49 +105,67 @@ class detailController extends Controller
                  ->count()*30;
         } 
          $data['wash_money'] =$tmp;
+          $data['status'] = 'money';  
          return response()->json($data,200);
     }
 
-      public function ajaxGetPromotion(){
-        $obj = Dorm::find(7);
+        public function StatisInDay($id,$year){
+        $obj = Dorm::find($id);
         $number_Wash = $obj['dorm_numberWash'];
         $data['number'] = $number_Wash ;
-        $tmp=[];
-        for ($i = 0; $i < $number_Wash; $i++) {
-        $tmp[]= report::where('wash_id','=',($i+1))->count()*30;
-        } 
-         $data['wash_money'] =$tmp;
-     return response()->json($data,200);
-    }
-
-      public function ajaxGetAnalysis(){
-        echo "ajaxGetAnalysis";
-    }
-        public function StatisInDay($id,$date){
-             $obj = Dorm::find($id);
-        $number_Wash = $obj['dorm_numberWash'];
-        $data['number'] = $number_Wash ;
-        $tmp=[];
-        for ($i = 0; $i < $number_Wash; $i++) {
-       $tmp[]= report::where('wash_id','=',($i+1))          
-                 -> where('created_at', '=', $date)
+        $use=[];
+        $money=[];
+        $use_month=[];
+        $money_month=[];
+        $use_year=[];
+        $money_year=[];  
+        if(strlen($year)>4&&strlen($year)<8)
+        {
+            $split = explode("-", $year);
+            $month = $split[1]; 
+            for ($i = 0; $i < $number_Wash; $i++) {
+             $use_month[]= report::where('wash_id','=',($i+1))          
+                     -> whereMonth('created_at', '=', $month)
+                     ->count();
+            } 
+             for ($i = 0; $i < $number_Wash; $i++) {
+             $money_month[]= report::where('wash_id','=',($i+1))          
+                     -> whereMonth('created_at', '=', $month)
+                     ->count()*30;
+            }
+        }elseif (strlen($year)>8) {
+            $day = $year;  
+            for ($i = 0; $i < $number_Wash; $i++) { 
+            $use[]= report::where('wash_id','=',($i+1))          
+                 -> where('created_at', '=', $day)
                  ->count();
-        } 
-         $data['wash_id'] =$tmp;
-         return response()->json($data,200);
+            } 
+            for ($i = 0; $i < $number_Wash; $i++) {
+            $money[]= report::where('wash_id','=',($i+1))          
+                     -> where('created_at', '=', $day)
+                     ->count()*30;
+            } 
+        }else{    
+            for ($i = 0; $i < $number_Wash; $i++) {
+             $use_year[]= report::where('wash_id','=',($i+1))          
+                     ->whereYear('created_at', '=', $year)
+                     ->count();
+            } 
+             for ($i = 0; $i < $number_Wash; $i++) {
+             $money_year[]= report::where('wash_id','=',($i+1))          
+                     ->whereYear('created_at', '=', $year)
+                     ->count()*30;
+            }
+        }     
+         $data['wash_id'] =$use;
+         $data['wash_money'] =$money;
+         $data['use_month'] =$use_month;
+         $data['money_month'] =$money_month;
+         $data['use_year'] =$use_year;
+         $data['money_year'] =$money_year;
+       return response()->json($data,200);
     }
     
-        public function StatisInWeek(){
-                echo "StatisInWeek";
-    }
-    
-    public function StatisInMonth(){
-        echo "StatisInMonth";
-    }
-
-       public function StatisInYear(){
-        echo "StatisInYear";
-    }
     /**
      * Show the form for editing the specified resource.
      *

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content') 
+<?php use Illuminate\Support\Facades\Input; ?>
        <div class="container helvelthica">
  <div class="row">
  <br>
@@ -22,8 +23,10 @@
 		
 		<div  style="margin-bottom: 10%;margin-left: 5%" >
 		 <br><hr>
-         <span><a id="static_use"><i class="material-icons" style="font-size:36px;color:green">assessment</i>ดูสถิติการใช้งาน</a></span>
-          <br><span><a id="static_money"><i class="material-icons" style="font-size:36px;color:orange">monetization_on</i>ดูสถิติการเงิน</a></span>
+         <span><a id="static_use"><i class="material-icons" style="font-size:36px;color:green">assessment</i>ดูสถิติการใช้งาน
+         </a></span>
+          <br><span><a id="static_money"><i class="material-icons" style="font-size:36px;color:orange">monetization_on</i>ดูสถิติการเงิน
+          </a></span>
            <!-- <br><span><a  id="promotion"><i class="material-icons" style="font-size:36px;color:red">add_shopping_cart</i>จัดโปรโมชัน</a></span>
            <br><span><a  id="analysis"><i class="material-icons" style="font-size:36px;color:purple">extension</i>วิเคราะห์และจัดการ</a></span> -->
            
@@ -39,13 +42,18 @@
 
 		<div style="margin-left: 5%;margin-top: 5%" id="ajax">
 		<!--	Container -->
+            <label id="statis">สถิติรายวัน &nbsp&nbsp&nbsp&nbsp&nbsp </label>
+            <input type="hidden" name="status" id="status" value="1">
+            <input type="hidden" name="type" id="type" value="1">
+             <span id="input">
+             <input type="date" name="input_day" id="input_day">    
+            </span id="btn">
+            <input type="submit" name="submit_Statis" id="submit_Statis" value="ยืนยัน">
 
-            <label>สถิติรายวัน &nbsp&nbsp&nbsp&nbsp&nbsp </label>
-            <input type="date" name="input_day" id="input_day">
-            <input type="submit" name="submit" id="submit" value="ยืนยัน">
+
         <!-- Chart code -->
         <script>
-        var count=1;
+        var count=1; 
         var chart = AmCharts.makeChart( "chartdiv", {
           "type": "serial",
           "theme": "light",
@@ -90,12 +98,11 @@
           "export": {
             "enabled": true
           }
-
         } );
         </script>
-		<div id="chartdiv"></div>	
+		<div id="chartdiv"> </div>	
 		<div id="test" align="center">
-			<button type="submit" id ="statis_week" style="color: #2C77D7;width: 20%">สถิติรายสัปดาห์</button>
+    <button type="submit" id ="statis_day" style="color: #2C77D7;width: 20%">สถิติรายวัน</button>
 			<button type="submit" id ="statis_month" style="color: #E02727;width: 20%">สถิติรายเดือน</button>
 			<button type="submit" id ="statis_year" style="color: #6DB413;width: 20%">สถิติรายปี</button>
 		</div>

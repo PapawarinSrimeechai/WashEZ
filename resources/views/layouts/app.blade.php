@@ -148,6 +148,7 @@
           var obj = url.split("/");
           var id = obj[2];
           var send = "/statisUse/"+id;
+          document.getElementById("status").value =  1;
    $.get(send, function(data, status){
         $("#chartdiv").html(data);
           var dataProvider=[];
@@ -205,6 +206,7 @@
           var obj = url.split("/");
           var id = obj[2];
           var send = "/statisMoney/"+id;
+          document.getElementById("status").value =  0;
    $.get(send, function(data, status){
         $("#chartdiv").html(data);
         var dataProvider=[];
@@ -255,43 +257,13 @@
 });
 </script>
 
-<script type="text/javascript">
-    $( "#promotion" ).click(function() {
-   $.get("/ajaxGetPromotion", function(data, status){
-        $("#ajax").html(data);
- var btn = document.createElement("Button");
- //var btn2 = document.createElement("option");
- var t = document.createTextNode("เลือกโปรโมชั่น");
-// var t2 = document.createTextNode("เลือกวันที่ต้องการจัดโปรโมชั่น");
-    btn.appendChild(t);
- //   btn2.appendChild(t2);
-   document.getElementById("ajax").appendChild(btn);
- //  document.getElementById("ajax").appendChild(btn2);
-   var x = document.createElement("SELECT");
-    x.setAttribute("id", "mySelect");
-    document.body.appendChild(x);
-
-    var z = document.createElement("option");
-    z.setAttribute("value", "volvocar");
-    var t = document.createTextNode("Volvo");
-    z.appendChild(t);
-    document.getElementById("mySelect").appendChild(z);
-    });
-});
-</script>
 
 <script type="text/javascript">
-    $( "#analysis" ).click(function() {
-   $.get("/ajaxGetAnalysis", function(data, status){
-        $("#ajax").html(data);
-
-    });
-});
-</script> 
-
-<script type="text/javascript">
-    $( "#submit" ).click(function() {
-      var date = document.getElementById("input_day").value;
+    $( "#submit_Statis" ).click(function() {
+      var date = document.getElementById("input_day").value;      
+      var condition = document.getElementById("status").value;
+      var type = document.getElementById("type").value;
+      console.log(date+" "+condition+" "+type)
            var url =  window.location.pathname ;
           var obj = url.split("/");
           var id = obj[2];
@@ -300,13 +272,60 @@
         $("#chartdiv").html(data);
         var dataProvider=[];
         var count=1;
-     for(var i=0;i<data.number;i++){
+        var title ="Static of Use";
+        var valueField = "จำนวนการใช้งาน";
+        if(condition==1&&type==1){ 
+        for(var i=0;i<data.number;i++){
             dataProvider.push({
                 "เครื่องที่": count++,
                 "จำนวนการใช้งาน":data.wash_id[i] ,
                 "color": "#D4E810"});
-        }
+          }  
+        }else if(condition==0&&type==1){
+           for(var i=0;i<data.number;i++){
+            dataProvider.push({
+                "เครื่องที่": count++,
+                "จำนวนเงิน":data.wash_money[i] ,
+                "color": "#D4E810"});
+         } 
+         title = "Static of Money";
+         valueField = "จำนวนเงิน";
+        }else if(condition==1&&type==2){
+           for(var i=0;i<data.number;i++){
+            dataProvider.push({
+                "เครื่องที่": count++,
+                "จำนวนการใช้งาน":data.use_month[i] ,
+                "color": "#D4E810"});
+         } 
+        }else if(condition==0&&type==2){
+           for(var i=0;i<data.number;i++){
+            dataProvider.push({
+                "เครื่องที่": count++,
+                "จำนวนเงิน":data.money_month[i] ,
+                "color": "#D4E810"});
+         } 
+         title = "Static of Money";
+         valueField = "จำนวนเงิน";
+        } else if(condition==1&&type==3){
+           for(var i=0;i<data.number;i++){
+            dataProvider.push({
+                "เครื่องที่": count++,
+                "จำนวนการใช้งาน":data.use_year[i] ,
+                "color": "#D4E810"});
+         } 
+        }else if(condition==0&&type==3){
+           for(var i=0;i<data.number;i++){
+            dataProvider.push({
+                "เครื่องที่": count++,
+                "จำนวนเงิน":data.money_year[i] ,
+                "color": "#D4E810"});
+         } 
+         title = "Static of Money";
+         valueField = "จำนวนเงิน";
+        }    
+
         console.log(dataProvider);
+
         var chart = AmCharts.makeChart( "chartdiv", {
           "type": "serial",
           "theme": "light",
@@ -316,7 +335,7 @@
             "gridAlpha": 0.2,
             "dashLength": 0,
             "position": "left",
-            "title": "Static of Use"
+            "title": title
           } ],
           "gridAboveGraphs": true,
           "startDuration": 1,
@@ -325,7 +344,7 @@
             "fillAlphas": 0.8,
             "lineAlpha": 0.2,
             "type": "column",
-            "valueField": "จำนวนการใช้งาน"
+            "valueField": valueField
           } ],
           "chartCursor": {
             "categoryBalloonEnabled": false,
@@ -344,23 +363,47 @@
           }
 
         });
-        });
+         });
+});
+</script>
+
+<script type="text/javascript">
+    $( "#statis_day" ).click(function() {
+      $("#statis").text("สถิติรายวัน");
+       document.getElementById("type").value =  1;
+      var newInput =  document.getElementById("input");
+      newInput.innerHTML = "<input type='date' name='input_day' id='input_day'>";
 });
 </script>
 
 <script type="text/javascript">
     $( "#statis_month" ).click(function() {
-   $.get("/StatisInMonth", function(data, status){
-        $("#ajax").html(data);
-    });
+       $("#statis").text("สถิติรายเดือน");
+        document.getElementById("type").value =  2;
+      var newInput =  document.getElementById("input");
+      newInput.innerHTML = "<input type='month' name='input_day' id='input_day'>";
 });
 </script>
 
 <script type="text/javascript">
     $( "#statis_year" ).click(function() {
-   $.get("/StatisInYear", function(data, status){
-        $("#ajax").html(data);
-    });
+       $("#statis").text("สถิติรายปี");
+        document.getElementById("type").value =  3;
+         var d = new Date();
+        var year = d.getFullYear();
+        var count=1;
+       var newInput = document.getElementById("input");
+      newInput.innerHTML =  "";
+     var select = document.createElement("select");
+      select.setAttribute("name", "year");
+      select.setAttribute("id","input_day");
+      for (var j = 0; j < 10; j++) {
+           var option = document.createElement("option");
+           option.setAttribute("value", year);
+           option.innerHTML = year--;
+           select.appendChild(option);
+      }
+      newInput.appendChild(select);
 });
 </script>
 </body>

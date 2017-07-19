@@ -13,7 +13,8 @@
         "twbs/bootstrap": "^3.3",
          "guzzlehttp/guzzle": "6.1.*",
          "mpociot/laravel-firebase-sync": "~1.0",
-        "firebase/php-jwt": "@dev"
+        "firebase/php-jwt": "@dev",
+         "laravelcollective/html": "~5.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
